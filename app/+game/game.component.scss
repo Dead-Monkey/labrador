@@ -1,3 +1,13 @@
-.contact {
-  background-color: green;
+.gameContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: blue;
+  .gameRow {
+    display: flex;
+    flex-flow: row nowrap;
+  }
 }

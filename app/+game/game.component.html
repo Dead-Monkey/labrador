@@ -1,10 +1,11 @@
 <ion-content>
-  <ion-list>
-    <ion-list-header>GAME</ion-list-header>
-    <ion-item class="contact" (tap)="goTo()">
-      <ion-icon name="ionic" item-left ></ion-icon>
-      go to start page
-    </ion-item>
-  </ion-list>
-  <button @heroState="test" (tap)="startAnime()">button</button>
+  <div class="gameContainer">
+
+    <div class="gameRow" *ngFor="let item of testArray">
+
+      <div *ngFor="let it of item">
+        {{it}}
+      </div>
+    </div>
+  </div>
 </ion-content>
