@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Platform, ionicBootstrap } from 'ionic-angular';
 import { Insomnia } from 'ionic-native';
-import { StartComponent } from './+start/start.component';
+import { StartComponent } from './+start';
 
 //4dev
-import { GameComponent } from './+game/game.component';
+import { GameComponent } from './+game';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'

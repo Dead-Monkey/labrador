@@ -1,3 +1,4 @@
+$gameCellSize: 30px;
 .gameContainer {
   display: flex;
   flex-flow: column nowrap;
@@ -5,9 +6,52 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: blue;
   .gameRow {
     display: flex;
     flex-flow: row nowrap;
+  }
+  .gameItem {
+    width: $gameCellSize;
+    height: $gameCellSize;
+  }
+}
+.userModel{
+  position: fixed;
+  width: $gameCellSize;
+  height: $gameCellSize;
+  left:50%;
+  top: 50%;
+  margin-top: -$gameCellSize;
+  margin-left: -$gameCellSize;
+  background-color: green;
+  z-index: 99;
+}
+.gamePadContainer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 150px;
+  height: 150px;
+  background-color: gray;
+  z-index: 99;
+  .gamePadTop {
+    position: absolute;
+    left: 30%;
+    top: 0;
+  }
+  .gamePadRight {
+    position: absolute;
+    right: 0;
+    top: 30%;
+  }
+  .gamePadBottom {
+    position: absolute;
+    left: 30%;
+    bottom: 0;
+  }
+  .gamePadLeft {
+    position: absolute;
+    left: 0;
+    top: 30%;
   }
 }

@@ -1,11 +1,17 @@
 <ion-content>
-  <div class="gameContainer">
-
-    <div class="gameRow" *ngFor="let item of testArray">
-
-      <div *ngFor="let it of item">
-        {{it}}
+  <div class="gameContainer" #lvlViewModel>
+    <div class="gameRow" *ngFor="let item of lvlModel">
+      <div class="gameItem" *ngFor="let it of item"  [style.backgroundColor]="backgroundMaker(it)">
       </div>
     </div>
+  </div>
+  <div class="userModel">
+
+  </div>
+  <div class="gamePadContainer">
+    <button class="gamePadTop" fab (tap)="gamePadController(1)">T</button>
+    <button class="gamePadRight" fab (tap)="gamePadController(2)">R</button>
+    <button class="gamePadBottom" fab (tap)="gamePadController(3)">B</button>
+    <button class="gamePadLeft" fab (tap)="gamePadController(4)">L</button>
   </div>
 </ion-content>

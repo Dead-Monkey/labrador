@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {GameComponent} from '../+game/game.component';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { GameComponent } from '../+game';
 @Component({
   templateUrl: 'build/+start/start.component.html'
 })
