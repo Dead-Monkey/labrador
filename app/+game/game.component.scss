@@ -1,5 +1,6 @@
 $gameCellSize: 30px;
-.gameContainer {
+.gameViewContainer {
+  position: absolute;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -21,8 +22,8 @@ $gameCellSize: 30px;
   height: $gameCellSize;
   left:50%;
   top: 50%;
-  margin-top: -$gameCellSize;
-  margin-left: -$gameCellSize;
+  margin-top: -$gameCellSize/2;
+  margin-left: -$gameCellSize/2;
   background-color: green;
   z-index: 99;
 }
@@ -33,6 +34,8 @@ $gameCellSize: 30px;
   width: 150px;
   height: 150px;
   background-color: gray;
+  opacity: 0.5;
+  border-radius: 50%;
   z-index: 99;
   .gamePadTop {
     position: absolute;

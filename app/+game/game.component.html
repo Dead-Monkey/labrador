@@ -1,13 +1,15 @@
 <ion-content>
-  <div class="gameContainer" #lvlViewModel>
-    <div class="gameRow" *ngFor="let item of lvlModel">
-      <div class="gameItem" *ngFor="let it of item"  [style.backgroundColor]="backgroundMaker(it)">
+  <div class="gameViewContainer" #mapViewModel>
+    <div class="gameRow" *ngFor="let item of  mapModel">
+      <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)">
       </div>
     </div>
-  </div>
-  <div class="userModel">
+    <!-- mobs, items, etc
+    <div class="t">
 
+    </div> -->
   </div>
+  <div class="userModel"></div>
   <div class="gamePadContainer">
     <button class="gamePadTop" fab (tap)="gamePadController(1)">T</button>
     <button class="gamePadRight" fab (tap)="gamePadController(2)">R</button>
