@@ -16,7 +16,7 @@ export class MyApp {
   constructor(private platform: Platform) {
     // this.rootPage = StartComponent;
     // 4dev
-    this.rootPage = GameComponent;
+    this.rootPage = StartComponent;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
