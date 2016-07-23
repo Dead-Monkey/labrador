@@ -8,7 +8,7 @@ import { LevelsService } from '../lvls'
 
 @Component({
   templateUrl: 'build/+game/game.component.html',
-  providers:[GameService, CollisionService]
+  providers: [GameService, CollisionService]
 })
 export class GameComponent implements OnInit {
   @ViewChild('mapViewModel') mapViewModel;
@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   private levelItems;
   private levelMap;
 
-  constructor(private nav: NavController, private userServe:MainUserService, private gameServe:GameService, private lvlsServe:LevelsService) { }
+  constructor(private nav: NavController, private userServe: MainUserService, private gameServe: GameService, private lvlsServe: LevelsService) { }
   ngOnInit() {
     this.level = this.lvlsServe.getLevelItems();
     this.levelConfig = this.lvlsServe.getLevelConfig();
@@ -33,19 +33,23 @@ export class GameComponent implements OnInit {
     //move speed
     this.mapViewModel.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
     //1. make map square and odd 4 correct view
-    this.preparelevelMap()
+    this.prepareLevelMap()
     //2. set default coordinates to 0:0 - left top angle of map
     this.mapViewModel.nativeElement.style.left = `${Math.floor(this.levelMap.length / 2) * this.levelConfig.cellSize}px`
     this.mapViewModel.nativeElement.style.top = `${Math.floor(this.levelMap[0].length / 2) * this.levelConfig.cellSize}px`
-    //3.move user to his position
-    if (this.userServe.getLevelSets(this.levelConfig.lvlId)['firstEnter']) {
-      //set enter point
+    //3.move users, mobs, items to they position
+    //TODO  set userS, mobs, items position
+    if (this.lvlsServe.getFirstEnter()) {
+      //set user enter point
       this.setUserStartPosition(this.levelConfig.enterPoint.x, this.levelConfig.enterPoint.y);
     } else {
       //save position
       this.setUserStartPosition(this.userServe.getUserPosition(this.levelConfig.lvlId).x, this.userServe.getUserPosition(this.levelConfig.lvlId).y);
     }
-
+    console.log(this.levelMap[2][0]);
+    //4. init game sets
+    this.gameServe.gameInit()
+    console.log(this.levelMap[2][0]);
   }
 
   setUserStartPosition(x: number = 0, y: number = 0) {
@@ -59,7 +63,14 @@ export class GameComponent implements OnInit {
     console.log(`pad`, this.userServe.getUserPosition())
   }
   backgroundMaker(item: number) {
-    let it = item[0].toString()
+    let it;
+    if (item[0]) {
+      it = item[0].toString()
+    }
+    //TODO remove this and add items in new layer
+    if (item[1]) {
+      it = item[1].toString()
+    }
     let res = 'white';
     switch (it[0]) {
       case '1':
@@ -68,12 +79,19 @@ export class GameComponent implements OnInit {
       case '2':
         res = it[2] === '5' ? 'black' : 'gray'
         break;
+      //TODO remove this and add items in new layer
+      case '3':
+        res = 'yellow'
+        break;
+      case '4':
+        res = 'blue'
+        break;
       default:
-        console.log(`no cases detected ${it[0]}`);
+      // console.log(`no cases detected ${it}. check your map.`);
     }
     return res
   }
-  preparelevelMap() {
+  prepareLevelMap() {
     let code = 201
     let maxLineLength = 0;
     //make all line and column length odd

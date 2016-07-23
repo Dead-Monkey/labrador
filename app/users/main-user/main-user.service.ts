@@ -18,7 +18,6 @@ export class MainUserService {
     }
   }
   constructor() {
-    console.log(`innnnnnnnnnnnnnnnnnnnnnnnnnn`);
   }
   getId() {
     return this.id
@@ -63,10 +62,8 @@ export class MainUserService {
     }
   }
   setUserPosition(x: number, y: number, level?: number) {
-    console.log(x,y);
     let lvl
     if (level) {
-      console.log(`inna`);
       lvl = level
     } else {
       lvl = this.getCurrentLevel()
