@@ -1,7 +1,14 @@
-<ion-content padding class="home">
+<ion-content padding class="start">
   <div class="container">
-    <button large outline danger (click)="goTo()">Start Game</button>
-    <button large outline danger>Booty</button>
-    <button large outline danger>Options</button>
+      <button large outline  (click)="goTo()">Start Game</button>
+      <button large outline (click)="otherGoTo()">Artifacts</button>
+      <button large outline (click)="anotherGoTo()">Options</button>
+    <div class="share">
+      <div class="shareIcons"><img src="/img/share/f.png" alt="F"></div>
+      <div class="shareIcons"><img src="/img/share/g.png" alt="G"></div>
+      <div class="shareIcons"><img src="/img/share/vk.png" alt="VK"></div>
+      <div class="shareIcons"><img src="/img/share/i.png" alt="I"></div>
+      <div class="shareIcons"><img src="/img/share/t.png" alt="T"></div>
+    </div>
   </div>
 </ion-content>

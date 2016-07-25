@@ -1,22 +1,28 @@
+.start  {
+  background: url('/img/test1.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
 .container {
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 100%;
-align-content: center;
+  align-content: center;
 }
-.home {
-  background: url('/build/img/test.jpg') no-repeat center center;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 button {
   width: 30%;
   margin-bottom: 150px;
+}
+.share {
+  position: absolute;
+  top: 7%;
+}
+.shareIcons {
+  width: 30%;
+  height: 30%;
+  margin-bottom: 2%;
 }

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Platform, ionicBootstrap } from 'ionic-angular';
 import { Insomnia } from 'ionic-native';
 import { StartComponent } from './+start';
+import { ArtifactsComponent } from './+artifacts';
+import { OptionsComponent } from './+options';
 
 //4dev
 import { GameComponent } from './+game';
