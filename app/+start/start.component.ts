@@ -10,17 +10,30 @@ export class StartComponent {
   constructor(private nav: NavController) {
 
   }
-  goTo(){
-    console.log(`goTo ContactPage`);
-    this.nav.push(GameComponent)
-  }
-  otherGoTo(){
-    console.log(`goTo ArtifactsComponent`);
-    this.nav.push(ArtifactsComponent)
+  goTo(x) {
+    switch (x) {
+      case 1:
+        this.nav.push(GameComponent);
+        break;
+      case 2:
+        this.nav.push(ArtifactsComponent);
+        break;
+      case 3:
+        this.nav.push(OptionsComponent)
+        break;
+      default:
+        console.log(x);
+    }
   }
 
- anotherGoTo(){
-   console.log(`goTo OptionsComponent`);
-   this.nav.push(OptionsComponent)
- }
+  //  otherGoTo(){
+  //    console.log(`goTo ArtifactsComponent`);
+  //    this.nav.push(ArtifactsComponent)
+  //  }
+  //
+  // anotherGoTo(){
+  //   console.log(`goTo OptionsComponent`);
+  //   this.nav.push(OptionsComponent)
+  // }
+
 }

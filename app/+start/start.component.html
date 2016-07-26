@@ -1,8 +1,8 @@
 <ion-content padding class="start">
   <div class="container">
-      <button large outline  (click)="goTo()">Start Game</button>
-      <button large outline (click)="otherGoTo()">Artifacts</button>
-      <button large outline (click)="anotherGoTo()">Options</button>
+      <button large outline  (tap)="goTo(1)">Start Game</button>
+      <button large outline (tap)="goTo(2)">Artifacts</button>
+      <button large outline (tap)="goTo(3)">Options</button>
     <div class="share">
       <div class="shareIcons"><img src="/img/share/f.png" alt="F"></div>
       <div class="shareIcons"><img src="/img/share/g.png" alt="G"></div>
@@ -10,5 +10,5 @@
       <div class="shareIcons"><img src="/img/share/i.png" alt="I"></div>
       <div class="shareIcons"><img src="/img/share/t.png" alt="T"></div>
     </div>
-  </div>
+      </div>
 </ion-content>

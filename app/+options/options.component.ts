@@ -6,5 +6,11 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/+options/options.component.html',
 })
 export class OptionsComponent {
+  constructor(private nav: NavController) {
+
+  }
+  goBack() {
+      this.nav.pop();
+    }
 
   }
