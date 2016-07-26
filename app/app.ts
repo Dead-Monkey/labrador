@@ -4,7 +4,6 @@ import { Platform, ionicBootstrap } from 'ionic-angular';
 import { Insomnia } from 'ionic-native';
 
 import { StartComponent } from './+start';
-import { LevelsService } from './lvls'
 import { MainUserService } from './users'
 import { StorageService } from './shared'
 
@@ -13,7 +12,7 @@ import { GameComponent } from './+game';
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
   //when add new lvl include him to lvlsVendor in levels.service.ts
-  providers:[MainUserService, LevelsService, StorageService]
+  providers:[MainUserService, StorageService]
 })
 export class MyApp {
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { MainUserService } from '../../../users'
-import { LevelsService } from '../../../lvls'
+import { LevelsService } from '../lvls'
 
 @Injectable()
 export class CollisionService {
@@ -9,7 +9,7 @@ export class CollisionService {
   constructor(private userServe:MainUserService, private lvlsServe:LevelsService) {
     this.mapModel = lvlsServe.getLevelMapModel()
   }
-  collisionChecker(direction: number, x: number = this.userServe.getUserPosition().x, y: number = this.userServe.getUserPosition().y) {
+  collisionChecker(direction: number, x: number = this.userServe.getPosition().x, y: number = this.userServe.getPosition().y) {
     switch (direction) {
       case 1:
         y--

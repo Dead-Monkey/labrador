@@ -48,7 +48,7 @@ export class MainUserService {
 
   }
 
-  getUserPosition(level?: number) {
+  getPosition(level?: number) {
     let lvl
     if (level) {
       lvl = level
@@ -61,7 +61,7 @@ export class MainUserService {
       console.log(`no pisition`);
     }
   }
-  setUserPosition(x: number, y: number, level?: number) {
+  setPosition(x: number, y: number, level?: number) {
     let lvl
     if (level) {
       lvl = level
@@ -71,7 +71,6 @@ export class MainUserService {
     this.levels[lvl].position.x = x
     this.levels[lvl].position.y = y
   }
-
 
   getLevels() {
     return this.levels

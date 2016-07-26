@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { MainUserService } from '../users'
+import { MainUserService } from '../../../users'
+import { ItemsService, Item, Mob } from '../items'
 import * as lvl_101 from './101'
 
 @Injectable()
@@ -12,7 +13,8 @@ export class LevelsService {
   private currentLevel;
   private mapModel;
   private lvlConfig;
-  constructor(private userServe: MainUserService) {
+  private lvlMobs
+  constructor(private userServe: MainUserService, private itemsServe: ItemsService) {
     this.currentLevel = this.userServe.getCurrentLevel()
     this.mapModel = this.lvlsList[this.currentLevel].mapModel
     this.lvlConfig = this.lvlsList[this.currentLevel].lvlConfig
@@ -35,8 +37,10 @@ export class LevelsService {
     return this.lvlConfig
   }
   getLevelItems() {
-    return this.lvlsList[this.currentLevel].items
-
+    return this.itemsServe.getItems()
+  }
+  getLevelMobs(){
+    return this.itemsServe.getMobs()
   }
   getLevelMapModel() {
     return this.mapModel
@@ -48,23 +52,35 @@ export class LevelsService {
     }
     return count
   }
-  getFirstEnter(){
+  getFirstEnter() {
     return this.lvlConfig.firstEnter
   }
-  checkFirstEnter(){
+  checkFirstEnter() {
     this.lvlConfig.firstEnter = false
   }
-  //firstEnter to map
-  //TODO save to memory
+  // firstEnter to map
+  /*  TODO save to memory*/
   changeMap() {
     console.log(`CHANGE map!`);
     if (this.lvlConfig.firstEnter) {
       for (let variable of this.mapModel) {
         for (let item of variable) {
           if (item[1]) {
-            //TODO check items, mobs, another users
-            if (item[1] === 701) {
-              item.splice(1, 1, this.userServe)
+            let it = item[1].toString()
+            switch (it[0]) {
+              //users
+              case '7':
+                item.splice(1, 1, this.userServe)
+                break;
+              //items/mobs
+              case '3':
+              case '4':
+                item.splice(1, 1, this.itemsServe.createItem(it[0], it[1], it[2], { x: variable.indexOf(item), y: this.mapModel.indexOf(variable) }))
+                break;
+              default:
+                console.log(`CHANGE MAP: dont have case:${it[0]}`);
+                break;
+
             }
           }
         }
@@ -73,12 +89,11 @@ export class LevelsService {
       for (let variable of this.mapModel) {
         for (let item of variable) {
           if (item[1]) {
-            //TODO check items, mobs, another users
-            if (item[1] instanceof MainUserService) {
-              item.pop()
-              this.mapModel[this.userServe.getUserPosition().y][this.userServe.getUserPosition().x].push(this.userServe)
+            let res
+            if(item[1] instanceof MainUserService || Item || Mob){
+              res = item.pop()
+              this.mapModel[res.getPosition().y][res.getPosition().x].push(res)
             }
-            // else if Mobs, Items
           }
         }
       }

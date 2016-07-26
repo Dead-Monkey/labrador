@@ -3,33 +3,36 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { MainUserService } from '../users'
-import { GameService, CollisionService } from './game'
-import { LevelsService } from '../lvls'
+import { GameService, CollisionService, ItemsService, LevelsService, Mob } from './game'
 
 @Component({
   templateUrl: 'build/+game/game.component.html',
-  providers: [GameService, CollisionService]
+  providers: [GameService, CollisionService, ItemsService, LevelsService]
 })
 export class GameComponent implements OnInit {
   @ViewChild('mapViewModel') mapViewModel;
-  private level;
+
+  // private level;
   private levelConfig;
   private levelItems;
+  private levelMobs;
   private levelMap;
 
-  constructor(private nav: NavController, private userServe: MainUserService, private gameServe: GameService, private lvlsServe: LevelsService) { }
+  constructor(private nav: NavController, private userServe: MainUserService, private gameServe: GameService, private lvlsServe: LevelsService, private itemsServe: ItemsService) { }
   ngOnInit() {
-    this.level = this.lvlsServe.getLevelItems();
-    this.levelConfig = this.lvlsServe.getLevelConfig();
-    this.levelItems = this.lvlsServe.getLevelItems();
+    // this.level = this.lvlsServe.getLevelItems();
     this.levelMap = this.lvlsServe.getLevelMapModel();
+    this.levelConfig = this.lvlsServe.getLevelConfig();
     this.userServe.setCurrentLevel(this.levelConfig.lvlId)
+    this.levelItems = this.lvlsServe.getLevelItems();
+    this.levelMobs = this.lvlsServe.getLevelMobs()
     this.userServe.getLevelSets(101)
-    // setInterval(() => {
-    //   this.levelMap[0][0][0] = this.levelMap[0][0][0] === 205 ? 102 : 205
-    //   console.log(this.levelMap[0][0]);
-    // }, 1000)
 
+    // setTimeout(() => {
+    // console.log(this.mobs.toArray()[0]);
+    //   // this.levelMap[0][0][0] = this.levelMap[0][0][0] === 205 ? 102 : 205
+    //   // console.log(this.levelMap[0][0]);
+    // }, 1000)
     //move speed
     this.mapViewModel.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
     //1. make map square and odd 4 correct view
@@ -44,32 +47,39 @@ export class GameComponent implements OnInit {
       this.setUserStartPosition(this.levelConfig.enterPoint.x, this.levelConfig.enterPoint.y);
     } else {
       //save position
-      this.setUserStartPosition(this.userServe.getUserPosition(this.levelConfig.lvlId).x, this.userServe.getUserPosition(this.levelConfig.lvlId).y);
+      this.setUserStartPosition(this.userServe.getPosition(this.levelConfig.lvlId).x, this.userServe.getPosition(this.levelConfig.lvlId).y);
     }
-    console.log(this.levelMap[2][0]);
     //4. init game sets
     this.gameServe.gameInit()
-    console.log(this.levelMap[2][0]);
+    // setInterval(()=> this.t = 0,1000)
+    setTimeout(() => {
+      this.t[0].style.transitionDuration = '5s'
+      this.t[0].style.transform = `translate3d(-300px, -10px, 0px)`
+      console.log(`timeout`);
+    }, 3000)
+  }
+  t = []
+
+  test(it, i) {
+    this.t.push(it)
+    console.log(this.t);
+
   }
 
   setUserStartPosition(x: number = 0, y: number = 0) {
     this.mapViewModel.nativeElement.style.transform = `translate3d(${-x * this.levelConfig.cellSize}px, ${-y * this.levelConfig.cellSize}px, 0px)`
-    this.userServe.setUserPosition(x, y)
+    this.userServe.setPosition(x, y)
   }
 
   gamePadController(arg) {
     this.gameServe.moveController(arg)
-    this.mapViewModel.nativeElement.style.transform = `translate3d(${-this.userServe.getUserPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getUserPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
-    console.log(`pad`, this.userServe.getUserPosition())
+    this.mapViewModel.nativeElement.style.transform = `translate3d(${-this.userServe.getPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
+    console.log(`pad`, this.userServe.getPosition())
   }
   backgroundMaker(item: number) {
     let it;
     if (item[0]) {
       it = item[0].toString()
-    }
-    //TODO remove this and add items in new layer
-    if (item[1]) {
-      it = item[1].toString()
     }
     let res = 'white';
     switch (it[0]) {
@@ -79,16 +89,11 @@ export class GameComponent implements OnInit {
       case '2':
         res = it[2] === '5' ? 'black' : 'gray'
         break;
-      //TODO remove this and add items in new layer
-      case '3':
-        res = 'yellow'
-        break;
-      case '4':
-        res = 'blue'
-        break;
+
       default:
-      // console.log(`no cases detected ${it}. check your map.`);
+        console.log(`no cases detected ${it}. check your map.`);
     }
+
     return res
   }
   prepareLevelMap() {

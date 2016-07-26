@@ -19,7 +19,7 @@ export class CollisionService {
   constructor(private user:MainUserService) {
     console.log(`collision`);
   }
-  collisionChecker(direction: number, x: number = this.user.getUserPosition().x, y: number = this.user.getUserPosition().y){
+  collisionChecker(direction: number, x: number = this.user.getPosition().x, y: number = this.user.getPosition().y){
     switch (direction) {
       case 1:
         y--
