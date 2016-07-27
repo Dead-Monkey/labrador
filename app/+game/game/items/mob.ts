@@ -13,7 +13,7 @@ export class Mob {
     this.id = ++Mob.idCounter
     this.name = `Valera${this.id}`
     this.setPosition(position.x, position.y)
-    console.log(`MOB type: ${name}, name:${this.name},  mod:${mod}, id: ${this.id}, position: x:${this.position.x},y:${this.position.y} INIT`);
+    // console.log(`MOB type: ${name}, name:${this.name},  mod:${mod}, id: ${this.id}, position: x:${this.position.x},y:${this.position.y} INIT`);
     /*TODO set img, speed etc in config*/
   }
   getPosition() {

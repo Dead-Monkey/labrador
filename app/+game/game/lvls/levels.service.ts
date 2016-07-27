@@ -13,14 +13,12 @@ export class LevelsService {
   private currentLevel;
   private mapModel;
   private lvlConfig;
-  private lvlMobs
+  private lvlMobs = []
+  private lvlItems = [];
   constructor(private userServe: MainUserService, private itemsServe: ItemsService) {
     this.currentLevel = this.userServe.getCurrentLevel()
     this.mapModel = this.lvlsList[this.currentLevel].mapModel
     this.lvlConfig = this.lvlsList[this.currentLevel].lvlConfig
-    // if (this.getFirstEnter()) {
-    //   this.changeMap()
-    // }
   }
   getCurrentLevel() {
     return this.currentLevel
@@ -37,10 +35,10 @@ export class LevelsService {
     return this.lvlConfig
   }
   getLevelItems() {
-    return this.itemsServe.getItems()
+    return this.lvlItems
   }
-  getLevelMobs(){
-    return this.itemsServe.getMobs()
+  getLevelMobs() {
+    return this.lvlMobs
   }
   getLevelMapModel() {
     return this.mapModel
@@ -66,7 +64,9 @@ export class LevelsService {
       for (let variable of this.mapModel) {
         for (let item of variable) {
           if (item[1]) {
-            let it = item[1].toString()
+            let it = item[1].toString(),
+              res
+
             switch (it[0]) {
               //users
               case '7':
@@ -75,7 +75,13 @@ export class LevelsService {
               //items/mobs
               case '3':
               case '4':
-                item.splice(1, 1, this.itemsServe.createItem(it[0], it[1], it[2], { x: variable.indexOf(item), y: this.mapModel.indexOf(variable) }))
+                res = this.itemsServe.createItem(it[0], it[1], it[2], { x: variable.indexOf(item), y: this.mapModel.indexOf(variable) })
+                item.splice(1, 1, res)
+                if (it[0] === '3') {
+                  this.lvlItems.push(res)
+                } else if (it[0] === '4') {
+                  this.lvlMobs.push(res)
+                }
                 break;
               default:
                 console.log(`CHANGE MAP: dont have case:${it[0]}`);
@@ -90,9 +96,12 @@ export class LevelsService {
         for (let item of variable) {
           if (item[1]) {
             let res
-            if(item[1] instanceof MainUserService || Item || Mob){
-              res = item.pop()
-              this.mapModel[res.getPosition().y][res.getPosition().x].push(res)
+            if (item[1] instanceof MainUserService || Item || Mob) {
+              if ((item[1].getPosition().x != variable.indexOf(item)) || (item[1].getPosition().y != this.mapModel.indexOf(variable))) {
+                res = item.splice(1, 1)
+                this.mapModel[res[0].getPosition().y][res[0].getPosition().x].push(res[0])
+                console.log('moved:', res);
+              }
             }
           }
         }

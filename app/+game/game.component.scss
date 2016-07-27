@@ -1,60 +1,65 @@
 $gameCellSize: 30px;
-.gameViewContainer {
-  position: absolute;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  .gameRow {
-    display: flex;
-    flex-flow: row nowrap;
+.game {
+  scroll-content {
+    overflow: hidden;
   }
-  .gameItem {
+  .gameViewContainer {
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    .gameRow {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+    .gameItem {
+      width: $gameCellSize;
+      height: $gameCellSize;
+    }
+  }
+  .userModel {
+    position: fixed;
     width: $gameCellSize;
     height: $gameCellSize;
+    left: 50%;
+    top: 50%;
+    margin-top: -$gameCellSize/2;
+    margin-left: -$gameCellSize/2;
+    background-color: green;
+    z-index: 99;
   }
-}
-.userModel{
-  position: fixed;
-  width: $gameCellSize;
-  height: $gameCellSize;
-  left:50%;
-  top: 50%;
-  margin-top: -$gameCellSize/2;
-  margin-left: -$gameCellSize/2;
-  background-color: green;
-  z-index: 99;
-}
-.gamePadContainer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 150px;
-  height: 150px;
-  background-color: red;
-  opacity: 0.6;
-  border-radius: 50%;
-  z-index: 99;
-  .gamePadTop {
-    position: absolute;
-    left: 30%;
-    top: 0;
-  }
-  .gamePadRight {
+  .gamePadContainer {
     position: absolute;
     right: 0;
-    top: 30%;
-  }
-  .gamePadBottom {
-    position: absolute;
-    left: 30%;
     bottom: 0;
-  }
-  .gamePadLeft {
-    position: absolute;
-    left: 0;
-    top: 30%;
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    opacity: 0.6;
+    border-radius: 50%;
+    z-index: 99;
+    .gamePadTop {
+      position: absolute;
+      left: 30%;
+      top: 0;
+    }
+    .gamePadRight {
+      position: absolute;
+      right: 0;
+      top: 30%;
+    }
+    .gamePadBottom {
+      position: absolute;
+      left: 30%;
+      bottom: 0;
+    }
+    .gamePadLeft {
+      position: absolute;
+      left: 0;
+      top: 30%;
+    }
   }
 }

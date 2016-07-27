@@ -5,17 +5,15 @@ import { Mob } from './mob'
 
 @Injectable()
 export class ItemsService {
-  private itemsContainer = [];
-  private mobsContainer = [];
   constructor() {
   }
   createItem(type: string, secondType: string, mod: string, position) {
     console.log(`createITEM`);
     let res;
     if (type === '3') {
-      this.itemsContainer.push(res = new Item(secondType, mod, position));
+      res = new Item(secondType, mod, position);
     } else if (type === '4') {
-      this.mobsContainer.push(res = new Mob(secondType, mod, position));
+      res = new Mob(secondType, mod, position);
     } else {
       console.log(`cant create item type: ${type}`);
     }
@@ -31,11 +29,5 @@ export class ItemsService {
     }else{
       console.log(`cant remove item id: ${id}`);
     }
-  }
-  getItems(){
-    return this.itemsContainer
-  }
-  getMobs(){
-    return this.mobsContainer
   }
 }

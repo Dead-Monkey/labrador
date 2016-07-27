@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
@@ -9,9 +9,10 @@ import { GameService, CollisionService, ItemsService, LevelsService, Mob } from 
   templateUrl: 'build/+game/game.component.html',
   providers: [GameService, CollisionService, ItemsService, LevelsService]
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, AfterViewInit {
   @ViewChild('mapViewModel') mapViewModel;
-
+  @ViewChildren('mobs') mobs;
+  /*TODO ViewChild levelMobs. ?*/
   // private level;
   private levelConfig;
   private levelItems;
@@ -20,6 +21,7 @@ export class GameComponent implements OnInit {
 
   constructor(private nav: NavController, private userServe: MainUserService, private gameServe: GameService, private lvlsServe: LevelsService, private itemsServe: ItemsService) { }
   ngOnInit() {
+
     // this.level = this.lvlsServe.getLevelItems();
     this.levelMap = this.lvlsServe.getLevelMapModel();
     this.levelConfig = this.lvlsServe.getLevelConfig();
@@ -27,7 +29,6 @@ export class GameComponent implements OnInit {
     this.levelItems = this.lvlsServe.getLevelItems();
     this.levelMobs = this.lvlsServe.getLevelMobs()
     this.userServe.getLevelSets(101)
-
     // setTimeout(() => {
     // console.log(this.mobs.toArray()[0]);
     //   // this.levelMap[0][0][0] = this.levelMap[0][0][0] === 205 ? 102 : 205
@@ -49,28 +50,24 @@ export class GameComponent implements OnInit {
       //save position
       this.setUserStartPosition(this.userServe.getPosition(this.levelConfig.lvlId).x, this.userServe.getPosition(this.levelConfig.lvlId).y);
     }
-    //4. init game sets
+    //4. init game sets (init items, mobs, etc)
     this.gameServe.gameInit()
-    // setInterval(()=> this.t = 0,1000)
-    setTimeout(() => {
-      this.t[0].style.transitionDuration = '5s'
-      this.t[0].style.transform = `translate3d(-300px, -10px, 0px)`
-      console.log(`timeout`);
-    }, 3000)
   }
-  t = []
-
-  test(it, i) {
-    this.t.push(it)
-    console.log(this.t);
-
+  ngAfterViewInit() {
+    console.log(this.levelMobs);
+    console.log(this.mobs.toArray());
+    /*TODO todo this
+    setMobsItemsStartPosition() */
   }
 
   setUserStartPosition(x: number = 0, y: number = 0) {
     this.mapViewModel.nativeElement.style.transform = `translate3d(${-x * this.levelConfig.cellSize}px, ${-y * this.levelConfig.cellSize}px, 0px)`
     this.userServe.setPosition(x, y)
   }
+  /*TODO todo this*/
+  setMobsItemsStartPosition() {
 
+  }
   gamePadController(arg) {
     this.gameServe.moveController(arg)
     this.mapViewModel.nativeElement.style.transform = `translate3d(${-this.userServe.getPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
@@ -93,7 +90,6 @@ export class GameComponent implements OnInit {
       default:
         console.log(`no cases detected ${it}. check your map.`);
     }
-
     return res
   }
   prepareLevelMap() {

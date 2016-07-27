@@ -1,11 +1,9 @@
-<ion-content>
-
+<ion-content class="game">
   <div class="gameViewContainer" #mapViewModel>
     <div class="gameRow" *ngFor="let item of  levelMap">
       <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
-    <div class="userModel"  *ngFor="let item of levelMobs" #test1>
-      {{test(test1, item)}}
+    <div class="userModel"  *ngFor="let item of levelMobs" #mobs>
     </div>
   </div>
   <div class="userModel"></div>
