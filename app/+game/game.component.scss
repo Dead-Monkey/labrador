@@ -20,8 +20,9 @@ $gameCellSize: 30px;
       height: $gameCellSize;
     }
   }
-  .userModel {
-    position: fixed;
+  //users, items, mobs
+  .itemModel {
+    position: absolute;
     width: $gameCellSize;
     height: $gameCellSize;
     left: 50%;

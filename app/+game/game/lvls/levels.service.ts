@@ -59,14 +59,12 @@ export class LevelsService {
   // firstEnter to map
   /*  TODO save to memory*/
   changeMap() {
-    console.log(`CHANGE map!`);
     if (this.lvlConfig.firstEnter) {
       for (let variable of this.mapModel) {
         for (let item of variable) {
           if (item[1]) {
             let it = item[1].toString(),
               res
-
             switch (it[0]) {
               //users
               case '7':
@@ -86,7 +84,6 @@ export class LevelsService {
               default:
                 console.log(`CHANGE MAP: dont have case:${it[0]}`);
                 break;
-
             }
           }
         }
@@ -106,6 +103,26 @@ export class LevelsService {
           }
         }
       }
+    }
+  }
+  removeItem(item) {
+    let res
+    if (item instanceof Mob) {
+      for (let variable of this.lvlMobs) {
+        if(variable.id === item.id){
+          res = this.lvlMobs.splice(this.lvlMobs.indexOf(variable), 1)
+          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1,1)
+        }
+      }
+    } else if (item instanceof Item) {
+      for (let variable of this.lvlItems) {
+        if(variable.id === item.id){
+          res = this.lvlItems.splice(this.lvlItems.indexOf(variable), 1)
+          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1,1)
+        }
+      }
+    } else {
+      console.log(`cant remove item: ${item}`);
     }
   }
 }

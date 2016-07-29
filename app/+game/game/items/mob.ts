@@ -23,4 +23,7 @@ export class Mob {
     this.position.x = x
     this.position.y = y
   }
+  destroyMe(){
+    console.log(`${this.name} was destroyed`);
+  }
 }

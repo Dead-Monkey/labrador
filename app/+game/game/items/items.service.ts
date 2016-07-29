@@ -19,15 +19,4 @@ export class ItemsService {
     }
     return res;
   }
-  /*TODO remove item*/
-  removeItem(type:string, id){
-
-    if(type === '3'){
-
-    }else if(type === '4'){
-
-    }else{
-      console.log(`cant remove item id: ${id}`);
-    }
-  }
 }

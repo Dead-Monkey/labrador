@@ -23,4 +23,10 @@ export class Item{
     this.position.x = x
     this.position.y = y
   }
+  destroyMe(){
+    console.log(`${this.name} was destroyed`);
+  }
+  pickMe(){
+    console.log(`${this.name} was picked`);
+  }
 }

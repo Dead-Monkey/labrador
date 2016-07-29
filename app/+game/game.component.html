@@ -3,10 +3,12 @@
     <div class="gameRow" *ngFor="let item of  levelMap">
       <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
-    <div class="userModel"  *ngFor="let item of levelMobs" #mobs>
-    </div>
+    <!-- users, items, mobs -->
+    <div class="itemModel"  *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.constructor.name}}</div>
+    <div class="itemModel"  *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
   </div>
-  <div class="userModel"></div>
+  <!-- main user -->
+  <div class="itemModel"></div>
   <div class="gamePadContainer">
     <button class="gamePadTop" fab (tap)="gamePadController(1)">
       <ion-icon name="arrow-dropup"></ion-icon>
@@ -21,4 +23,6 @@
       <ion-icon name="arrow-dropleft"></ion-icon>
     </button>
   </div>
+
+  <button large outline class="reload" (tap)="reload()">BIG RED BUTTON</button>
 </ion-content>

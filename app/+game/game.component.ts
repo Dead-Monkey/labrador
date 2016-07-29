@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, AfterViewChecked } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
@@ -9,10 +9,10 @@ import { GameService, CollisionService, ItemsService, LevelsService, Mob } from 
   templateUrl: 'build/+game/game.component.html',
   providers: [GameService, CollisionService, ItemsService, LevelsService]
 })
-export class GameComponent implements OnInit, AfterViewInit {
+export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('mapViewModel') mapViewModel;
   @ViewChildren('mobs') mobs;
-  /*TODO ViewChild levelMobs. ?*/
+  @ViewChildren('items') items;
   // private level;
   private levelConfig;
   private levelItems;
@@ -54,24 +54,32 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.gameServe.gameInit()
   }
   ngAfterViewInit() {
-    console.log(this.levelMobs);
-    console.log(this.mobs.toArray());
-    /*TODO todo this
-    setMobsItemsStartPosition() */
+    //5. set users, mob items, start position
+    this.setMobsItemsStartPosition()
   }
-
+  ngAfterViewChecked() {
+    // console.log(`--------------------------CHECKED------------------------`);
+  }
   setUserStartPosition(x: number = 0, y: number = 0) {
     this.mapViewModel.nativeElement.style.transform = `translate3d(${-x * this.levelConfig.cellSize}px, ${-y * this.levelConfig.cellSize}px, 0px)`
     this.userServe.setPosition(x, y)
   }
-  /*TODO todo this*/
   setMobsItemsStartPosition() {
-
+    for (let variable of this.levelMobs) {
+      let mob = this.mobs.toArray()[this.levelMobs.indexOf(variable)]
+      mob.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
+      mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+    }
+    // console.log(this.levelItems);
+    for (let variable of this.levelItems) {
+      let it = this.items.toArray()[this.levelItems.indexOf(variable)]
+      it.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
+      it.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+    }
   }
   gamePadController(arg) {
     this.gameServe.moveController(arg)
     this.mapViewModel.nativeElement.style.transform = `translate3d(${-this.userServe.getPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
-    console.log(`pad`, this.userServe.getPosition())
   }
   backgroundMaker(item: number) {
     let it;
@@ -86,7 +94,6 @@ export class GameComponent implements OnInit, AfterViewInit {
       case '2':
         res = it[2] === '5' ? 'black' : 'gray'
         break;
-
       default:
         console.log(`no cases detected ${it}. check your map.`);
     }
@@ -135,5 +142,8 @@ export class GameComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+  reload(){
+    location.reload()
   }
 }
