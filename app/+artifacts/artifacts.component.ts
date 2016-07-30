@@ -6,5 +6,10 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/+artifacts/artifacts.component.html',
 })
 export class ArtifactsComponent {
+  constructor(private nav: NavController) {
 
+  }
+  goBack() {
+      this.nav.pop();
+    }
   }

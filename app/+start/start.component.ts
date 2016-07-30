@@ -11,6 +11,7 @@ export class StartComponent {
 
   }
   goTo(x) {
+    console.log("ololo");
     switch (x) {
       case 1:
         this.nav.push(GameComponent);
