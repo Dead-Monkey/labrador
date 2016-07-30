@@ -70,7 +70,6 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
       mob.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
       mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
     }
-    // console.log(this.levelItems);
     for (let variable of this.levelItems) {
       let it = this.items.toArray()[this.levelItems.indexOf(variable)]
       it.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
