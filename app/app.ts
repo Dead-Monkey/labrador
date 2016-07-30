@@ -1,21 +1,27 @@
 import { Component } from '@angular/core';
+
 import { Platform, ionicBootstrap } from 'ionic-angular';
 import { Insomnia } from 'ionic-native';
+
 import { StartComponent } from './+start';
 import { ArtifactsComponent } from './+artifacts';
 import { OptionsComponent } from './+options';
+import { MainUserService } from './users'
+import { StorageService } from './shared'
 
 //4dev
 import { GameComponent } from './+game';
-
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav [root]="rootPage"></ion-nav>',
+  //when add new lvl include him to lvlsVendor in levels.service.ts
+  providers:[MainUserService, StorageService]
 })
 export class MyApp {
 
   private rootPage: any;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private user:MainUserService) {
+
     // this.rootPage = StartComponent;
     // 4dev
     this.rootPage = StartComponent;

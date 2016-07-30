@@ -1,19 +1,28 @@
-<ion-content>
+<ion-content class="game">
   <div class="gameViewContainer" #mapViewModel>
-    <div class="gameRow" *ngFor="let item of  mapModel">
-      <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)">
-      </div>
+    <div class="gameRow" *ngFor="let item of  levelMap">
+      <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
-    <!-- mobs, items, etc
-    <div class="t">
-
-    </div> -->
+    <!-- users, items, mobs -->
+    <div class="itemModel"  *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.constructor.name}}</div>
+    <div class="itemModel"  *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
   </div>
-  <div class="userModel"></div>
+  <!-- main user -->
+  <div class="itemModel"></div>
   <div class="gamePadContainer">
-    <button class="gamePadTop" fab (tap)="gamePadController(1)">T</button>
-    <button class="gamePadRight" fab (tap)="gamePadController(2)">R</button>
-    <button class="gamePadBottom" fab (tap)="gamePadController(3)">B</button>
-    <button class="gamePadLeft" fab (tap)="gamePadController(4)">L</button>
+    <button class="gamePadTop" fab (tap)="gamePadController(1)">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </button>
+    <button class="gamePadRight" fab (tap)="gamePadController(2)">
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
+    <button class="gamePadBottom" fab (tap)="gamePadController(3)">
+      <ion-icon name="arrow-dropdown"></ion-icon>
+    </button>
+    <button class="gamePadLeft" fab (tap)="gamePadController(4)">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </button>
   </div>
+
+  <button large outline class="reload" (tap)="reload()">BIG RED BUTTON</button>
 </ion-content>
