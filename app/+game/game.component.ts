@@ -56,8 +56,11 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
   ngAfterViewInit() {
     //5. set users, mob items, start position
     this.setMobsItemsStartPosition()
+    this.gameServe.mobStartAI()
   }
   ngAfterViewChecked() {
+    this.moveMob()
+    // console.warn("!!!!!!!!!!!1",this.levelMobs[0].name,this.levelMobs[0].getPosition() );
     // console.log(`--------------------------CHECKED------------------------`);
   }
   setUserStartPosition(x: number = 0, y: number = 0) {
@@ -68,12 +71,19 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
     for (let variable of this.levelMobs) {
       let mob = this.mobs.toArray()[this.levelMobs.indexOf(variable)]
       mob.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
-      mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+      mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2 - variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
     }
     for (let variable of this.levelItems) {
       let it = this.items.toArray()[this.levelItems.indexOf(variable)]
       it.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
-      it.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+      it.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2 - variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+    }
+  }
+  moveMob() {
+    for (let variable of this.levelMobs) {
+      let mob = this.mobs.toArray()[this.levelMobs.indexOf(variable)]
+      mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2 - variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+
     }
   }
   gamePadController(arg) {
@@ -142,7 +152,7 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
       }
     }
   }
-  reload(){
+  reload() {
     location.reload()
   }
 }

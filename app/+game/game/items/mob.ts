@@ -1,13 +1,18 @@
+import { CollisionService } from '../collision/collision.service';
+
 export class Mob {
   private static idCounter: number = 0;
   private exist: boolean;
   private id: number;
   private name: string;
+  private mover;
   private position = {
     x: 0,
     y: 0
   }
-  private config: {}
+  private config = {
+    speed: 1000
+  }
   constructor(private type: string, private mod: string, position) {
     this.exist = true
     this.id = ++Mob.idCounter
@@ -23,7 +28,7 @@ export class Mob {
     this.position.x = x
     this.position.y = y
   }
-  destroyMe(){
+  destroyMe() {
     console.log(`${this.name} was destroyed`);
   }
 }

@@ -4,7 +4,7 @@
       <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
     <!-- users, items, mobs -->
-    <div class="itemModel"  *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.constructor.name}}</div>
+    <div class="itemModel"  *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.name}}</div>
     <div class="itemModel"  *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
   </div>
   <!-- main user -->

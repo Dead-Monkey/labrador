@@ -6,7 +6,7 @@ import * as lvl_101 from './101'
 
 @Injectable()
 export class LevelsService {
-  //TODO save list to memory and get him from memory in next enters
+  /*TODO save list to memory and get him from memory in next enters*/
   private lvlsList: Object = {
     101: lvl_101
   }
@@ -88,6 +88,8 @@ export class LevelsService {
           }
         }
       }
+      // this.mobStart()
+
     } else {
       for (let variable of this.mapModel) {
         for (let item of variable) {
@@ -97,7 +99,6 @@ export class LevelsService {
               if ((item[1].getPosition().x != variable.indexOf(item)) || (item[1].getPosition().y != this.mapModel.indexOf(variable))) {
                 res = item.splice(1, 1)
                 this.mapModel[res[0].getPosition().y][res[0].getPosition().x].push(res[0])
-                console.log('moved:', res);
               }
             }
           }
@@ -109,21 +110,23 @@ export class LevelsService {
     let res
     if (item instanceof Mob) {
       for (let variable of this.lvlMobs) {
-        if(variable.id === item.id){
+        if (variable.id === item.id) {
           res = this.lvlMobs.splice(this.lvlMobs.indexOf(variable), 1)
-          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1,1)
+          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1, 1)
         }
       }
     } else if (item instanceof Item) {
       for (let variable of this.lvlItems) {
-        if(variable.id === item.id){
+        if (variable.id === item.id) {
           res = this.lvlItems.splice(this.lvlItems.indexOf(variable), 1)
-          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1,1)
+          this.mapModel[res[0].getPosition().y][res[0].getPosition().x].splice(1, 1)
         }
       }
     } else {
       console.log(`cant remove item: ${item}`);
     }
   }
-}
   //TODO save to mamory positions after prepare, move, changes
+
+
+}
