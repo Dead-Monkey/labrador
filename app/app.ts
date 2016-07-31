@@ -24,7 +24,7 @@ export class MyApp {
 
     // this.rootPage = StartComponent;
     // 4dev
-    this.rootPage = StartComponent;
+    this.rootPage = OptionsComponent;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

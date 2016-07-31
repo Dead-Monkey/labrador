@@ -1,4 +1,52 @@
-<ion-content padding class="options">
-<h1>options</h1>
-<div class="back" (click)="goBack()"></div>
+<ion-content padding class="outer-content options">
+  <h1>options</h1>
+  <div class="back" (click)="goBack()"></div>
+
+
+  <ion-list>
+    <ion-list-header>
+      Music
+    </ion-list-header>
+    <ion-grid>
+      <ion-row class="test">
+        <ion-col width-25>
+          1111
+        </ion-col>
+        <ion-col width-10>
+
+        </ion-col>
+        <ion-col width-10>
+          tada
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item>
+      <ion-range [(ngModel)]="brightness">
+        <ion-icon range-left small name="md-volume-mute"></ion-icon>
+        <ion-icon range-right name="md-volume-mute"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Sound
+    </ion-list-header>
+    <ion-item>
+      <ion-range [(ngModel)]="contrast">
+        <ion-icon range-left small name="md-volume-mute"></ion-icon>
+        <ion-icon range-right name="md-volume-mute"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+<style>
+  ion-list+ ion-list {
+    margin-top: 0;
+  }
+
+  .small-text {
+    font-size: 10px;
+  }
+</style>

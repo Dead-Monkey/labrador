@@ -12,4 +12,13 @@
   height: 30px;
   background-color: red;
 }
+  ion-list + ion-list {
+    margin-top: 0;
+  }
+  .small-text {
+    font-size: 10px;
+  }
+}
+.test{
+  justify-content: center;
 }
