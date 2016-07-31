@@ -1,65 +1,108 @@
 <ion-content padding class="artifacts">
-  <div class="container">
+ <ion-icon ios="ios-arrow-back" md="md-arrow-back" class="back" (click)="goBack()"></ion-icon>
 
-    <!-- <ion-card>
-      <img src="/img/qm.png"/>
-      <ion-card-content>
-        <ion-card-title>
-          Nine Inch Nails Live
-          </ion-card-title>
-        <p>
-          The most popular industrial group ever, and largely
-          responsible for bringing the music to a mass audience.
-        </p>
-      </ion-card-content> -->
+  <!-- 1 -->
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-25>
+          <img class="image" src="/img/arts/mona_lisa.jpg" />
+        </ion-col>
+        <ion-col width-75>
+          <ion-card-content>
+            <h2 class="card-title">
+                Mona Lisa
+            </h2>
+            <div class="text">
+              The Mona Lisa is a half-length portrait of a woman by the Italian artist Leonardo da Vinci, which has been acclaimed as "the best known, the most visited, the most written about, the most sung about, the most parodied work of art in the world".
+            </div>
+            <div class="result">
+              Best score: 14 min 88 sec
+              <br>
+              <ion-icon ios="ios-star" md="md-star"></ion-icon>
+              <ion-icon ios="ios-star" md="md-star"></ion-icon>
+              <ion-icon ios="ios-star" md="md-star"></ion-icon>
+              <ion-icon ios="ios-star-half" md="md-star-half"></ion-icon>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+            </div>
 
-    <div class="back" (click)="goBack()"></div>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row no-padding>
+      <ion-col>
+        <button clear small dark>
+          <ion-icon name='more'></ion-icon>
+          Read more
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button clear small dark>
+          <ion-icon name='refresh'></ion-icon>
+          improve the result
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button clear small dark>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
-    <div class="cells">
+  <!-- 2 -->
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-25>
+          <img class="image" src="/img/arts/qm.png" />
+        </ion-col>
+        <ion-col width-75>
+          <ion-card-content>
+            <h2 class="card-title">
+                Unknown artifacts
+            </h2>
+            <div class="text">
+              Нou have not found this artifact
+            </div>
+            <div class="result">
+              Best score:
+              <br>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+              <ion-icon ios="ios-star-outline" md="md-star-outline"></ion-icon>
+            </div>
 
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/mona_lisa.jpg" alt="no image"></div>
-        <div class="item_name">Mona Lisa</div>
-      </div>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row no-padding>
+      <ion-col>
+        <button clear small dark>
+          <ion-icon name='more'></ion-icon>
+          Read more
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button clear small dark>
+          <ion-icon name='refresh'></ion-icon>
+          improve the result
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button clear small dark>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
 
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
 
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-
-      <div class="item">
-        <div class="item_icon"><img src="/img/arts/qm.png" alt="no image"></div>
-        <div class="item_name">unknown artifact</div>
-      </div>
-
-    </div>
-  </div>
 </ion-content>

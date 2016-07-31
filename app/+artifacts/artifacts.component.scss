@@ -1,60 +1,27 @@
 .artifacts {
-  background     : url('/img/wall.jpg') no-repeat center center;
+  background: url('/img/wall.jpg') no-repeat center center;
   background-size: cover;
-  width          : 100%;
-  height         : 100%;
-
-  .container {
-    display       : flex;
-    flex-direction: row;
-    overflow-x    : hidden;
-    width         : 100%;
-    height        : 100%;
+  width: 100%;
+  height: 100%;
+  ion-col {
+    max-width: 100%;
+    .text {
+      text-align: justify;
+      overflow: hidden;
+      max-height: 35vh;
+    }
+    .card-title {
+      font-weight: bolder;
+    }
   }
-  .cells {
-    width          : 100%;
-    height         : 100%;
-    display        : flex;
-    flex-wrap      : wrap;
-    justify-content: space-around;
-  }
-  .item {
-    width        : 24%;
-    height       : 45%;
-    margin-left  : 4%;
-    margin-top   : 2%;
-    border       : 2px solid #787fa0;
-    border-radius: 5px;
-  }
-  .item_icon {
-    position: absolute;
-    left    : 0;
-    width   : 100%;
-    height  : 75%;
-  }
-  .item_name {
-    position        : absolute;
-    top             : 75%;
-    left            : 0;
-    width           : 100%;
-    height          : 25%;
-    text-align      : center;
-    font-weight     : bold;
-    font-size       : 1em;
-    line-height     : 200%;
-    color           : #101118;
-    background-color: #787fa0;
-  }
-  img {
-    width : 100%;
-    height: 100%;
+  .result {
+    font-weight: bold;
+    position: relative;
+    margin-top: 1%;
   }
   .back {
-    position        : absolute;
-    right           : 2%;
-    top             : 3%;
-    width           : 20px;
-    height          : 20px;
-    background-color: green;
+    position: fixed;
+    top: 3%;
+    left: 3%;
   }
 }

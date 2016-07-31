@@ -1,25 +1,25 @@
-.start  {
+.start {
   background: url('/img/test1.jpg') no-repeat center center;
   background-size: cover;
   width: 100%;
   height: 100%;
-}
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  align-content: center;
-}
-button {
-  width: 30%;
-  margin-bottom: 150px;
-}
-.share {
-  position: absolute;
-  width: 10%;
-  height: 10%;
-  top: 4%;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+
+    button {
+      width: 30%;
+    }
+  }
+
+  .share {
+    position: absolute;
+  font-size: 30px;
+    top: 4%;
+  }
 }
