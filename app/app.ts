@@ -12,14 +12,13 @@ import { GameComponent } from './+game';
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
   //when add new lvl include him to lvlsVendor in levels.service.ts
-  providers:[MainUserService, StorageService]
+  providers: [MainUserService, StorageService]
 })
 export class MyApp {
 
   private rootPage: any;
 
-  constructor(private platform: Platform, private user:MainUserService) {
-
+  constructor(private platform: Platform, private user: MainUserService) {
     // this.rootPage = StartComponent;
     // 4dev
     this.rootPage = GameComponent;
@@ -36,4 +35,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp,[], {prodMode: true});

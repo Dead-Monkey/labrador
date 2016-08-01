@@ -24,6 +24,9 @@ export class Mob {
   getPosition() {
     return this.position
   }
+  getConfig(){
+    return this.config
+  }
   setPosition(x: number, y: number) {
     this.position.x = x
     this.position.y = y

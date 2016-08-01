@@ -47,6 +47,7 @@ export class GameService {
   mobStartAI() {
     let mobs = this.lvlsServe.getLevelMobs()
     for (let mob of mobs) {
+      let lastMove;
       mob.mover = setInterval(() => {
         let random;
         let freeCells = []
@@ -56,7 +57,12 @@ export class GameService {
           }
         }
         if (freeCells.length) {
-          random = freeCells[Math.floor(Math.random() * freeCells.length)]
+          if (freeCells.indexOf(lastMove) >= 0) {
+            random = lastMove
+          } else {
+            random = freeCells[Math.floor(Math.random() * freeCells.length)]
+          }
+          lastMove = random
           switch (random) {
             case 1:
               mob.setPosition(mob.getPosition().x, (mob.getPosition().y - 1))
@@ -65,14 +71,10 @@ export class GameService {
               mob.setPosition((mob.getPosition().x + 1), mob.getPosition().y)
               break;
             case 3:
-              if (this.collisionServe.collisionChecker(random, mob.getPosition().x, mob.getPosition().y, true)) {
-                mob.setPosition(mob.getPosition().x, (mob.getPosition().y + 1))
-              }
+              mob.setPosition(mob.getPosition().x, (mob.getPosition().y + 1))
               break;
             case 4:
-              if (this.collisionServe.collisionChecker(random, mob.getPosition().x, mob.getPosition().y, true)) {
-                mob.setPosition((mob.getPosition().x - 1), mob.getPosition().y)
-              }
+              mob.setPosition((mob.getPosition().x - 1), mob.getPosition().y)
               break;
           }
           this.lvlsServe.changeMap()
