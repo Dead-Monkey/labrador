@@ -8,36 +8,65 @@ import { LevelsService } from './lvls'
 export class GameService {
   private mapModel;
   private mobsAIContainer
+  private moverMaker = {
+    first: 0,
+    second: 0
+  };
+  private stepEndTime = 0;
   constructor(private lvlsServe: LevelsService, private collisionServe: CollisionService, private userServe: MainUserService) {
     this.mapModel = this.lvlsServe.getLevelMapModel()
     /*TODO call toast from toast service*/
     this.collisionServe.presentToast(`LETS IT BEGIN`)
   }
   //TODO move mobs, items.
-  moveController(arg) {
-    switch (arg) {
+  moveController(direction: number, toggle: boolean) {
+    clearInterval(this.moverMaker.first)
+    clearTimeout(this.moverMaker.second)
+    let dif = performance.now() - this.stepEndTime,
+      move = () => {
+        this.step(direction)
+        this.lvlsServe.changeMap()
+      }
+    if (toggle) {
+      if (dif >= this.lvlsServe.getLevelConfig().moveSpeed) {
+        move()
+        this.moverMaker.first = setInterval(() => {
+          move()
+        }, this.lvlsServe.getLevelConfig().moveSpeed)
+      } else {
+        this.moverMaker.second = setTimeout(() => {
+          move()
+          this.moverMaker.first = setInterval(() => {
+            move()
+          }, this.lvlsServe.getLevelConfig().moveSpeed)
+        }, (this.lvlsServe.getLevelConfig().moveSpeed - dif))
+      }
+    }
+  }
+  step(direction) {
+    switch (direction) {
       case 1:
-        if (this.collisionServe.collisionChecker(arg)) {
+        if (this.collisionServe.collisionChecker(direction)) {
           this.userServe.setPosition(this.userServe.getPosition().x, (this.userServe.getPosition().y - 1))
         }
         break
       case 2:
-        if (this.collisionServe.collisionChecker(arg)) {
+        if (this.collisionServe.collisionChecker(direction)) {
           this.userServe.setPosition((this.userServe.getPosition().x + 1), this.userServe.getPosition().y)
         }
         break
       case 3:
-        if (this.collisionServe.collisionChecker(arg)) {
+        if (this.collisionServe.collisionChecker(direction)) {
           this.userServe.setPosition(this.userServe.getPosition().x, (this.userServe.getPosition().y + 1))
         }
         break
       case 4:
-        if (this.collisionServe.collisionChecker(arg)) {
+        if (this.collisionServe.collisionChecker(direction)) {
           this.userServe.setPosition((this.userServe.getPosition().x - 1), this.userServe.getPosition().y)
         }
         break
     }
-    this.lvlsServe.changeMap()
+    this.stepEndTime = performance.now()
   }
   gameInit() {
     this.lvlsServe.changeMap();
