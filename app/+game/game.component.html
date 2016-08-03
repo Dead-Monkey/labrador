@@ -4,11 +4,11 @@
       <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
     <!-- users, items, mobs -->
-    <div class="itemModel" *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.name}}</div>
-    <div class="itemModel" *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
+    <div class="itemobModel" *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.name}}</div>
+    <div class="itemobModel" *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
   </div>
   <!-- main user -->
-  <div class="itemModel"></div>
+  <div class="userModel"></div>
   <div class="gamePadContainer">
     <button class="gamePadTop" fab (touchstart)="gamePadController(1, $event)" (touchend)="gamePadController(1, $event)">
       <ion-icon name="arrow-dropup"></ion-icon>

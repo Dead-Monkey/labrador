@@ -88,8 +88,6 @@ export class LevelsService {
           }
         }
       }
-      // this.mobStart()
-
     } else {
       for (let variable of this.mapModel) {
         for (let item of variable) {
@@ -127,6 +125,4 @@ export class LevelsService {
     }
   }
   //TODO save to mamory positions after prepare, move, changes
-
-
 }
