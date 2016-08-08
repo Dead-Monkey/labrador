@@ -67,6 +67,7 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
     for (let variable of this.levelMobs) {
       let mob = this.mobs.toArray()[this.levelMobs.indexOf(variable)]
       mob.nativeElement.style.transitionDuration = `${variable.getConfig().speed + 50}ms`
+
       mob.nativeElement.style.transitionTimingFunction = 'linear'
       mob.nativeElement.style.transform = `translate3d(${variable.getPosition().x * this.levelConfig.cellSize}px, ${variable.getPosition().y * this.levelConfig.cellSize}px, 0px)`
     }

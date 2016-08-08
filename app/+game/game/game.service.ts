@@ -76,38 +76,45 @@ export class GameService {
     let mobs = this.lvlsServe.getLevelMobs()
     for (let mob of mobs) {
       let lastMove;
-      mob.mover = setInterval(() => {
-        let random;
-        let freeCells = []
-        for (let i = 1; i < 5; i++) {
-          if (this.collisionServe.collisionChecker(i, mob.getPosition().x, mob.getPosition().y, true)) {
-            freeCells.push(i)
+      mob.mover = () => {
+        setTimeout(() => {
+          // console.log(`MOB MOVE`, mob.name);
+          let random;
+          let freeCells = []
+          for (let i = 1; i < 5; i++) {
+            if (this.collisionServe.collisionChecker(i, mob.getPosition().x, mob.getPosition().y, true)) {
+              freeCells.push(i)
+            }
           }
-        }
-        if (freeCells.length) {
-          if (freeCells.indexOf(lastMove) >= 0) {
-            random = lastMove
-          } else {
-            random = freeCells[Math.floor(Math.random() * freeCells.length)]
+          if (freeCells.length) {
+            if (freeCells.indexOf(lastMove) >= 0) {
+              random = lastMove
+            } else {
+              random = freeCells[Math.floor(Math.random() * freeCells.length)]
+            }
+            lastMove = random
+            switch (random) {
+              case 1:
+                mob.setPosition(mob.getPosition().x, (mob.getPosition().y - 1))
+                break;
+              case 2:
+                mob.setPosition((mob.getPosition().x + 1), mob.getPosition().y)
+                break;
+              case 3:
+                mob.setPosition(mob.getPosition().x, (mob.getPosition().y + 1))
+                break;
+              case 4:
+                mob.setPosition((mob.getPosition().x - 1), mob.getPosition().y)
+                break;
+            }
+            this.lvlsServe.changeMap()
           }
-          lastMove = random
-          switch (random) {
-            case 1:
-              mob.setPosition(mob.getPosition().x, (mob.getPosition().y - 1))
-              break;
-            case 2:
-              mob.setPosition((mob.getPosition().x + 1), mob.getPosition().y)
-              break;
-            case 3:
-              mob.setPosition(mob.getPosition().x, (mob.getPosition().y + 1))
-              break;
-            case 4:
-              mob.setPosition((mob.getPosition().x - 1), mob.getPosition().y)
-              break;
+          if (mob.exist) {
+            mob.mover()
           }
-          this.lvlsServe.changeMap()
-        }
-      }, mob.config.speed)
+        }, mob.config.speed)
+      }
+      mob.mover()
     }
   }
   mobCather() {

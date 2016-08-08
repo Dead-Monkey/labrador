@@ -17,6 +17,8 @@ export class Mob {
     this.exist = true
     this.id = ++Mob.idCounter
     this.name = `Valera${this.id}`
+    this.type = type
+    this.mod = mod
     this.setPosition(position.x, position.y)
     // console.log(`MOB type: ${name}, name:${this.name},  mod:${mod}, id: ${this.id}, position: x:${this.position.x},y:${this.position.y} INIT`);
     /*TODO set img, speed etc in config*/
@@ -32,6 +34,7 @@ export class Mob {
     this.position.y = y
   }
   destroyMe() {
-    console.log(`${this.name} was destroyed`);
+    this.exist = !this.exist
+    console.log(`mob ${this.name} was destroyed`);
   }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { StorageService } from '../../shared'
+
 @Injectable()
 export class MainUserService {
   private id: number = 1
@@ -17,7 +19,7 @@ export class MainUserService {
       }
     }
   }
-  constructor() {
+  constructor(private storageServe:StorageService) {
   }
   getId() {
     return this.id

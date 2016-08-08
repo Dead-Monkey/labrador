@@ -3,17 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class StorageService {
-    setItem(name: string, item: any) {
-        localStorage.setItem(name, JSON.stringify(item));
+  setItem(name: string, item: any) {
+    try{
+      localStorage.setItem(name, JSON.stringify(item));
+    }catch(e){
+      console.warn(`StorageService ERROR`, e);
     }
+  }
 
-    getItem(name: string): any {
-        if (localStorage.getItem(name)) {
-        }
-        return JSON.parse(localStorage.getItem(name));
-    }
+  getItem(name: string): any {
+      return JSON.parse(localStorage.getItem(name));
+  }
 
-    removeItem(name:string){
-      localStorage.removeItem(name);
-    }
+  removeItem(name: string) {
+    localStorage.removeItem(name);
+  }
 }

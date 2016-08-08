@@ -13,7 +13,7 @@ export class CollisionService {
     mob: `U'r loose NOOB!!1! U WAS OWNED BY:`,
     item: `Item picked! kiss my shiny metal ass! Item:`
   }
-  constructor(private userServe: MainUserService, private lvlsServe: LevelsService, private nav: NavController, private toastCtrl:ToastController) {
+  constructor(private userServe: MainUserService, private lvlsServe: LevelsService, private nav: NavController, private toastCtrl: ToastController) {
     this.mapModel = lvlsServe.getLevelMapModel()
   }
   collisionChecker(direction: number, x: number = this.userServe.getPosition().x, y: number = this.userServe.getPosition().y, AI?: boolean) {
@@ -46,7 +46,7 @@ export class CollisionService {
     toast.present();
   }
   private collisionWorker(x: number, y: number, AI?: boolean) {
-    if (this.mapModel[y][x] && this.mapModel[y][x][0] && this.mapModel[y][x][0].toString()[0] === '1') {
+    if (this.mapModel[y] && this.mapModel[y][x] && this.mapModel[y][x][0] && this.mapModel[y][x][0].toString()[0] === '1') {
       if (this.mapModel[y][x][1] && this.mapModel[y][x][1] instanceof Mob) {
         if (AI) {
 

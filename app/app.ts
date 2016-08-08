@@ -35,4 +35,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp,[], {prodMode: true});
+ionicBootstrap(MyApp,[], {prodMode: false});
