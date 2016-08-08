@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { NavController, Toast } from 'ionic-angular'
+import { NavController, ToastController } from 'ionic-angular'
 
 import { MainUserService } from '../../../users'
 import { LevelsService } from '../lvls'
@@ -13,7 +13,7 @@ export class CollisionService {
     mob: `U'r loose NOOB!!1! U WAS OWNED BY:`,
     item: `Item picked! kiss my shiny metal ass! Item:`
   }
-  constructor(private userServe: MainUserService, private lvlsServe: LevelsService, private nav: NavController) {
+  constructor(private userServe: MainUserService, private lvlsServe: LevelsService, private nav: NavController, private toastCtrl:ToastController) {
     this.mapModel = lvlsServe.getLevelMapModel()
   }
   collisionChecker(direction: number, x: number = this.userServe.getPosition().x, y: number = this.userServe.getPosition().y, AI?: boolean) {
@@ -35,15 +35,15 @@ export class CollisionService {
   }
   /*TODO make toast service*/
   presentToast(msg: string) {
-    let toast = Toast.create({
+    let toast = this.toastCtrl.create({
       message: msg,
       duration: 4000,
       position: 'top'
     });
-    toast.onDismiss(() => {
+    toast.onDidDismiss(() => {
       // console.log('Dismissed toast');
     });
-    this.nav.present(toast);
+    toast.present();
   }
   private collisionWorker(x: number, y: number, AI?: boolean) {
     if (this.mapModel[y][x] && this.mapModel[y][x][0] && this.mapModel[y][x][0].toString()[0] === '1') {

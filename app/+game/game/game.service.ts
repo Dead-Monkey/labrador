@@ -18,7 +18,6 @@ export class GameService {
     /*TODO call toast from toast service*/
     this.collisionServe.presentToast(`LETS IT BEGIN`)
   }
-  //TODO move mobs, items.
   moveController(direction: number, toggle: boolean) {
     clearInterval(this.moverMaker.first)
     clearTimeout(this.moverMaker.second)
