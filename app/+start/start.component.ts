@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SocialSharing } from 'ionic-native';
 import { GameComponent } from '../+game';
 import { OptionsComponent } from '../+options';
 import { ArtifactsComponent } from '../+artifacts';
+
 @Component({
   templateUrl: 'build/+start/start.component.html'
 })
@@ -11,7 +13,6 @@ export class StartComponent {
 
   }
   goTo(x) {
-    console.log("ololo");
     switch (x) {
       case 1:
         this.nav.push(GameComponent);
@@ -22,19 +23,18 @@ export class StartComponent {
       case 3:
         this.nav.push(OptionsComponent)
         break;
+      case 4:
+        SocialSharing.share('pesiun-pesiun','subjecttttt', ``, 'https://google.com').then((r) => {
+          console.log("Success!",r);
+        }).catch((e) => {
+          console.log("Error11!",e);
+        });
+        break;
       default:
         console.log(x);
     }
   }
 
-  //  otherGoTo(){
-  //    console.log(`goTo ArtifactsComponent`);
-  //    this.nav.push(ArtifactsComponent)
-  //  }
-  //
-  // anotherGoTo(){
-  //   console.log(`goTo OptionsComponent`);
-  //   this.nav.push(OptionsComponent)
-  // }
+
 
 }
