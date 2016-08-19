@@ -23,7 +23,7 @@ export class MyApp {
   constructor(private platform: Platform, private user: MainUserService) {
     // this.rootPage = StartComponent;
     // 4dev
-    this.rootPage = OptionsComponent;
+    this.rootPage = GameComponent;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

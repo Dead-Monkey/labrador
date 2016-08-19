@@ -87,9 +87,20 @@ export class GameService {
             }
           }
           if (freeCells.length) {
-            if (freeCells.indexOf(lastMove) >= 0) {
-              random = lastMove
+            if (freeCells.length === 1) {
+              random = freeCells[0];
             } else {
+              if (lastMove) {
+                let res;
+                if (freeCells.indexOf(lastMove + 2) >= 0) {
+                  res = freeCells.indexOf(lastMove + 2);
+                } else if (freeCells.indexOf(lastMove - 2) >= 0) {
+                  res = freeCells.indexOf(lastMove - 2)
+                }
+                if (res >= 0) {
+                  freeCells.splice(res, 1);
+                }
+              }
               random = freeCells[Math.floor(Math.random() * freeCells.length)]
             }
             lastMove = random
