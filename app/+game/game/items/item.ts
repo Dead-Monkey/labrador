@@ -12,6 +12,8 @@ export class Item{
     this.exist = true
     this.id = ++Item.idCounter
     this.name = `Nishtyak${this.id}`
+    this.type = type
+    this.mod = mod
     this.setPosition(position.x, position.y)
     // console.log(`ITEM type: ${name}, name:${this.name}, mod:${mod}, id: ${this.id}, position: x:${this.position.x},y:${this.position.y} INIT`);
     /*TODO set img, speed etc in config*/
@@ -24,7 +26,8 @@ export class Item{
     this.position.y = y
   }
   destroyMe(){
-    console.log(`${this.name} was destroyed`);
+    this.exist = !this.exist
+    console.log(`item ${this.name} was destroyed`);
   }
   pickMe(){
     console.log(`${this.name} was picked`);

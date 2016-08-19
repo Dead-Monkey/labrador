@@ -5,12 +5,16 @@ $gameCellSize: 30px;
   }
   .gameViewContainer {
     position: absolute;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+    // display: flex;
+    // flex-flow: column nowrap;
+    // justify-content: center;
+    // align-items: center;
+    left: 50%;
+    top: 50%;
+    // min-width: 100vw;
+    // min-height: 100vh;
+    margin-top: -$gameCellSize/2;
+    margin-left: -$gameCellSize/2;
     .gameRow {
       display: flex;
       flex-flow: row nowrap;
@@ -21,7 +25,7 @@ $gameCellSize: 30px;
     }
   }
   //users, items, mobs
-  .itemModel {
+  .userModel {
     position: absolute;
     width: $gameCellSize;
     height: $gameCellSize;
@@ -30,7 +34,16 @@ $gameCellSize: 30px;
     margin-top: -$gameCellSize/2;
     margin-left: -$gameCellSize/2;
     background-color: green;
-    z-index: 99;
+    z-index: 9999;
+  }
+  .itemobModel{
+    position: absolute;
+    width: $gameCellSize;
+    height: $gameCellSize;
+    left:0;
+    top:0;  
+    background-color: green;
+    z-index: 9999;
   }
   .gamePadContainer {
     position: absolute;

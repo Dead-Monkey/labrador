@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, AfterViewChe
 import { NavController } from 'ionic-angular';
 
 import { MainUserService } from '../users'
-import { GameService, CollisionService, ItemsService, LevelsService, Mob } from './game'
+import { GameService, CollisionService, ItemsService, LevelsService, Mob, Item } from './game'
 
 @Component({
   templateUrl: 'build/+game/game.component.html',
@@ -13,6 +13,7 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('mapViewModel') mapViewModel;
   @ViewChildren('mobs') mobs;
   @ViewChildren('items') items;
+
   // private level;
   private levelConfig;
   private levelItems;
@@ -20,66 +21,77 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
   private levelMap;
 
   constructor(private nav: NavController, private userServe: MainUserService, private gameServe: GameService, private lvlsServe: LevelsService, private itemsServe: ItemsService) { }
-  ngOnInit() {
 
-    // this.level = this.lvlsServe.getLevelItems();
+  ngOnInit() {
+    //1. init component properties
     this.levelMap = this.lvlsServe.getLevelMapModel();
     this.levelConfig = this.lvlsServe.getLevelConfig();
     this.userServe.setCurrentLevel(this.levelConfig.lvlId)
     this.levelItems = this.lvlsServe.getLevelItems();
     this.levelMobs = this.lvlsServe.getLevelMobs()
     this.userServe.getLevelSets(101)
-    // setTimeout(() => {
-    // console.log(this.mobs.toArray()[0]);
-    //   // this.levelMap[0][0][0] = this.levelMap[0][0][0] === 205 ? 102 : 205
-    //   // console.log(this.levelMap[0][0]);
-    // }, 1000)
-    //move speed
-    this.mapViewModel.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
-    //1. make map square and odd 4 correct view
-    this.prepareLevelMap()
-    //2. set default coordinates to 0:0 - left top angle of map
-    this.mapViewModel.nativeElement.style.left = `${Math.floor(this.levelMap.length / 2) * this.levelConfig.cellSize}px`
-    this.mapViewModel.nativeElement.style.top = `${Math.floor(this.levelMap[0].length / 2) * this.levelConfig.cellSize}px`
-    //3.move users, mobs, items to they position
-    //TODO  set userS, mobs, items position
-    if (this.lvlsServe.getFirstEnter()) {
-      //set user enter point
-      this.setUserStartPosition(this.levelConfig.enterPoint.x, this.levelConfig.enterPoint.y);
-    } else {
-      //save position
-      this.setUserStartPosition(this.userServe.getPosition(this.levelConfig.lvlId).x, this.userServe.getPosition(this.levelConfig.lvlId).y);
-    }
-    //4. init game sets (init items, mobs, etc)
+    //2. move speed
+    this.mapViewModel.nativeElement.style.transitionDuration = `${this.levelConfig.moveSpeed + 100}ms`
+    //3. init game settings
     this.gameServe.gameInit()
   }
   ngAfterViewInit() {
-    //5. set users, mob items, start position
-    this.setMobsItemsStartPosition()
+    //4. set start positions
+    this.setStartPositions()
+    //5. start AI
+    this.gameServe.mobStartAI()
   }
   ngAfterViewChecked() {
-    // console.log(`--------------------------CHECKED------------------------`);
+    //6. IT'S ALIVE !!!1!
+    this.moveMaker()
   }
-  setUserStartPosition(x: number = 0, y: number = 0) {
-    this.mapViewModel.nativeElement.style.transform = `translate3d(${-x * this.levelConfig.cellSize}px, ${-y * this.levelConfig.cellSize}px, 0px)`
-    this.userServe.setPosition(x, y)
+
+  setStartPositions() {
+    let userPosition;
+    for (let variable of this.levelMap) {
+      for (let item of variable) {
+        if (item[1] && (item[1] instanceof MainUserService)) {
+          userPosition = {
+            x: variable.indexOf(item),
+            y: this.levelMap.indexOf(variable)
+          }
+        }
+      }
+    }
+    this.mapViewModel.nativeElement.style.transitionTimingFunction = 'linear'
+    this.mapViewModel.nativeElement.style.transform = `translate3d(${-userPosition.x * this.levelConfig.cellSize}px, ${-userPosition.y * this.levelConfig.cellSize}px, 0px)`
+    this.userServe.setPosition(userPosition.x, userPosition.y)
+    this.setMobsItemsStartPosition()
   }
   setMobsItemsStartPosition() {
     for (let variable of this.levelMobs) {
       let mob = this.mobs.toArray()[this.levelMobs.indexOf(variable)]
-      mob.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
-      mob.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+      mob.nativeElement.style.transitionDuration = `${variable.getConfig().speed + 50}ms`
+
+      mob.nativeElement.style.transitionTimingFunction = 'linear'
+      mob.nativeElement.style.transform = `translate3d(${variable.getPosition().x * this.levelConfig.cellSize}px, ${variable.getPosition().y * this.levelConfig.cellSize}px, 0px)`
     }
     for (let variable of this.levelItems) {
       let it = this.items.toArray()[this.levelItems.indexOf(variable)]
-      it.nativeElement.style.transitionDuration = this.levelConfig.moveSpeed
-      it.nativeElement.style.transform = `translate3d(${-Math.floor(this.levelMap.length / 2 - variable.getPosition().x) * this.levelConfig.cellSize}px, ${-Math.floor(this.levelMap[0].length / 2- variable.getPosition().y) * this.levelConfig.cellSize}px, 0px)`
+      it.nativeElement.style.transform = `translate3d(${variable.getPosition().x * this.levelConfig.cellSize}px, ${variable.getPosition().y * this.levelConfig.cellSize}px, 0px)`
     }
   }
-  gamePadController(arg) {
-    this.gameServe.moveController(arg)
-    this.mapViewModel.nativeElement.style.transform = `translate3d(${-this.userServe.getPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
+  moveMaker() {
+    let user = this.mapViewModel.nativeElement.style
+    for (let mobModel of this.levelMobs) {
+      let mob = this.mobs.toArray()[this.levelMobs.indexOf(mobModel)]
+      mob.nativeElement.style.transform = `translate3d(${mobModel.getPosition().x * this.levelConfig.cellSize}px, ${mobModel.getPosition().y * this.levelConfig.cellSize}px, 0px)`
+    }
+    user.transform = `translate3d(${-this.userServe.getPosition(this.levelConfig.lvlId).x * this.levelConfig.cellSize}px, ${-this.userServe.getPosition(this.levelConfig.lvlId).y * this.levelConfig.cellSize}px, 0px)`
   }
+  gamePadController(direction, event) {
+    if (event.type === 'touchstart') {
+      this.gameServe.moveController(direction, true)
+    } else if (event.type === 'touchend') {
+      this.gameServe.moveController(direction, false)
+    }
+  }
+
   backgroundMaker(item: number) {
     let it;
     if (item[0]) {
@@ -98,51 +110,7 @@ export class GameComponent implements OnInit, AfterViewInit, AfterViewChecked {
     }
     return res
   }
-  prepareLevelMap() {
-    let code = 201
-    let maxLineLength = 0;
-    //make all line and column length odd
-    if (!(this.levelMap.length % 2)) {
-      this.levelMap.push([])
-    }
-    for (let variable of this.levelMap) {
-      if (!(variable.length % 2)) {
-        variable.push([code])
-      }
-    }
-    for (let variable of this.levelMap) {
-      maxLineLength = maxLineLength < variable.length ? variable.length : maxLineLength
-    }
-    //make all line length same
-    for (let variable of this.levelMap) {
-      if (variable.length < maxLineLength) {
-        let dif = maxLineLength - variable.length
-        for (let i = 0; i < dif; i++) {
-          variable.push([code])
-        }
-      }
-    }
-    //make square
-    if (!(this.levelMap.length === this.levelMap[0].length)) {
-      let dif = Math.abs(this.levelMap.length - this.levelMap[0].length)
-      let pusher = []
-      if (this.levelMap.length > this.levelMap[0].length) {
-        for (let variable of this.levelMap) {
-          for (let i = 0; i < dif; i++) {
-            variable.push([code])
-          }
-        }
-      } else {
-        for (let i = 0; i < this.levelMap[0].length; i++) {
-          pusher.push([code])
-        }
-        for (let i = 0; i < dif; i++) {
-          this.levelMap.push(pusher)
-        }
-      }
-    }
-  }
-  reload(){
+  reload() {
     location.reload()
   }
 }

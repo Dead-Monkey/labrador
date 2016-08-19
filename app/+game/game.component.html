@@ -4,25 +4,24 @@
       <div class="gameItem" *ngFor="let it of item" [style.backgroundColor]="backgroundMaker(it)"></div>
     </div>
     <!-- users, items, mobs -->
-    <div class="itemModel"  *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.constructor.name}}</div>
-    <div class="itemModel"  *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
+    <div class="itemobModel" *ngFor="let item of levelMobs" #mobs [style.backgroundColor]="'blue'">{{item.name}}</div>
+    <div class="itemobModel" *ngFor="let item of levelItems" #items [style.backgroundColor]="'yellow'">{{item.constructor.name}}</div>
   </div>
   <!-- main user -->
-  <div class="itemModel"></div>
+  <div class="userModel"></div>
   <div class="gamePadContainer">
-    <button class="gamePadTop" fab (tap)="gamePadController(1)">
+    <button class="gamePadTop" fab (touchstart)="gamePadController(1, $event)" (touchend)="gamePadController(1, $event)">
       <ion-icon name="arrow-dropup"></ion-icon>
     </button>
-    <button class="gamePadRight" fab (tap)="gamePadController(2)">
+    <button class="gamePadRight" fab (touchstart)="gamePadController(2, $event)" (touchend)="gamePadController(2, $event)">
       <ion-icon name="arrow-dropright"></ion-icon>
     </button>
-    <button class="gamePadBottom" fab (tap)="gamePadController(3)">
+    <button class="gamePadBottom" fab (touchstart)="gamePadController(3, $event)" (touchend)="gamePadController(3, $event)">
       <ion-icon name="arrow-dropdown"></ion-icon>
     </button>
-    <button class="gamePadLeft" fab (tap)="gamePadController(4)">
+    <button class="gamePadLeft" fab (touchstart)="gamePadController(4, $event)" (touchend)="gamePadController(4, $event)">
       <ion-icon name="arrow-dropleft"></ion-icon>
     </button>
   </div>
-
   <button large outline class="reload" (tap)="reload()">BIG RED BUTTON</button>
 </ion-content>
